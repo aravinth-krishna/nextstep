@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter for redirection
+import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 
 interface Experience {
@@ -31,13 +31,11 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter(); // Initialize router for redirection
+  const router = useRouter();
 
-  // Check if the user is logged in when the component mounts
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      // Redirect to login page if not logged in
       router.push("/login");
     }
   }, [router]);
@@ -86,11 +84,11 @@ const Dashboard = () => {
       const payload = {
         fullName,
         bio,
-        skills: skills.split(",").map((skill) => skill.trim()), // Skills as array
+        skills: skills.split(",").map((skill) => skill.trim()),
         experience: experienceData,
       };
 
-      console.log("Submitting payload:", payload); // Log the payload
+      console.log("Submitting payload:", payload);
 
       const response = await fetch("/api/profile", {
         method: "POST",
@@ -132,10 +130,9 @@ const Dashboard = () => {
     }
   };
 
-  // Logout functionality
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove token from localStorage
-    router.push("/login"); // Redirect to login page
+    localStorage.removeItem("token");
+    router.push("/login");
   };
 
   return (
@@ -187,7 +184,6 @@ const Dashboard = () => {
           />
         </div>
 
-        {/* Experience form fields */}
         {experienceData.map((exp, index) => (
           <div key={index} className={styles.experienceSection}>
             <div>

@@ -3,7 +3,6 @@ import { prisma } from "../../../lib/prisma";
 import jwt from "jsonwebtoken";
 import { NextRequest } from "next/server";
 
-// Helper function to verify JWT and extract userId
 const verifyJwt = (token: string) => {
   try {
     const secretKey = process.env.JWT_SECRET_KEY;
@@ -20,7 +19,6 @@ const verifyJwt = (token: string) => {
 
 export async function POST(req: NextRequest) {
   try {
-    // Extract JWT from the Authorization header
     const token = req.headers.get("Authorization")?.split(" ")[1];
 
     if (!token) {
@@ -30,7 +28,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Verify JWT token and extract userId
     const decoded = verifyJwt(token) as jwt.JwtPayload & { userId: string };
 
     if (!decoded) {
@@ -54,9 +51,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { userId } = decoded; // Extract userId from decoded token
+    const { userId } = decoded;
 
-    // Parse the incoming request body
     const { fullName, bio, skills, experience } = await req.json();
 
     if (!skills || !Array.isArray(skills)) {
@@ -73,7 +69,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check if skills exist and handle them
     const skillIds = await Promise.all(
       skills.map(async (skillName: string) => {
         let skill = await prisma.skill.findUnique({
@@ -89,7 +84,6 @@ export async function POST(req: NextRequest) {
       })
     );
 
-    // Create or update the user's profile in the database
     const profile = await prisma.profile.create({
       data: {
         userId,

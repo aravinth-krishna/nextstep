@@ -36,7 +36,6 @@ const SignUp = () => {
       setUsername("");
       setPassword("");
 
-      // Redirect to dashboard
       router.push("/dashboard");
     } catch (error: unknown) {
       setError((error as Error).message);

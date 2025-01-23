@@ -10,7 +10,6 @@ export async function POST(req: Request) {
   try {
     const { email, password, fullName } = await req.json();
 
-    // Validate input
     if (!email || !password || !fullName) {
       return NextResponse.json(
         { error: "All fields are required." },
@@ -18,7 +17,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check if the user already exists
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
@@ -30,20 +28,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-    // Create the user
     const newUser = await prisma.user.create({
       data: {
         email,
         hashedPassword,
         fullName,
-        role: "USER", // Default role
+        role: "USER",
       },
     });
 
-    // Generate JWT token
     if (!JWT_SECRET) {
       throw new Error("JWT_SECRET_KEY is not defined.");
     }

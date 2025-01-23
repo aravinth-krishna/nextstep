@@ -7,7 +7,7 @@ import {
   FaUserGraduate,
   FaCogs,
   FaChartLine,
-} from "react-icons/fa"; // Importing React icons
+} from "react-icons/fa";
 
 export default function Page() {
   return (

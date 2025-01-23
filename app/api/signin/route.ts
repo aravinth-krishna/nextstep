@@ -12,7 +12,6 @@ export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
 
-    // Validate input
     if (!email || !password) {
       return NextResponse.json(
         { error: "Email and password are required." },
@@ -20,7 +19,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Find the user
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -32,7 +30,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Compare the password
     const isPasswordValid = await bcrypt.compare(password, user.hashedPassword);
     if (!isPasswordValid) {
       return NextResponse.json(
@@ -41,7 +38,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role, userId: user.id },
       JWT_SECRET as string,

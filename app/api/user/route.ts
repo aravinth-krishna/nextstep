@@ -3,7 +3,6 @@ import { prisma } from "../../../lib/prisma";
 import jwt from "jsonwebtoken";
 import { NextRequest } from "next/server";
 
-// Helper function to verify JWT and extract userId
 const verifyJwt = (token: string) => {
   try {
     const secretKey = process.env.JWT_SECRET_KEY;
@@ -20,7 +19,6 @@ const verifyJwt = (token: string) => {
 
 export async function GET(req: NextRequest) {
   try {
-    // Extract JWT from the Authorization header
     const token = req.headers.get("Authorization")?.split(" ")[1];
 
     if (!token) {
@@ -30,7 +28,6 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Verify JWT token and extract userId
     const decoded = verifyJwt(token) as jwt.JwtPayload & { userId: string };
 
     if (!decoded) {
@@ -54,9 +51,8 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const { userId } = decoded; // Extract userId from decoded token
+    const { userId } = decoded;
 
-    // Fetch user details from the database
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: {

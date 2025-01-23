@@ -30,14 +30,12 @@ const Login = () => {
         throw new Error(data.error || "Failed to login.");
       }
 
-      // Save the token to localStorage
-      localStorage.setItem("token", data.token); // Store the token
+      localStorage.setItem("token", data.token);
 
       alert("Login successful!");
       setEmail("");
       setPassword("");
 
-      // Redirect to dashboard
       router.push("/dashboard");
     } catch (error: unknown) {
       if (error instanceof Error) {

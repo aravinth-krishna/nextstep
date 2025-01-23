@@ -1,4 +1,3 @@
-/* Container for the entire page */
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -8,7 +7,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Header styles */
 .container h1 {
   font-size: 2.5rem;
   color: #333;
@@ -23,7 +21,6 @@
   margin-bottom: 2rem;
 }
 
-/* Error message styling */
 .error {
   color: red;
   font-size: 1rem;
@@ -31,21 +28,18 @@
   text-align: center;
 }
 
-/* Form styling */
 .form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* Label styling */
 .label {
   font-size: 1.1rem;
   color: #333;
   margin-bottom: 0.5rem;
 }
 
-/* Input and textarea fields */
 .input,
 .textarea {
   padding: 0.8rem;
@@ -56,13 +50,11 @@
   box-sizing: border-box;
 }
 
-/* Textarea specific styles */
 .textarea {
   min-height: 100px;
   resize: vertical;
 }
 
-/* Button styling */
 .button {
   padding: 0.8rem;
   font-size: 1.2rem;
@@ -99,7 +91,6 @@
   background-color: #d00056;
 }
 
-/* Add and Remove Experience Button styling */
 .addButton,
 .removeButton {
   padding: 0.5rem 1rem;
