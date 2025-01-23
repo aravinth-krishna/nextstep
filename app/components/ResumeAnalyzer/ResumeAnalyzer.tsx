@@ -5,14 +5,11 @@ import * as pdfjsLib from "pdfjs-dist";
 import Groq from "groq-sdk";
 import styles from "./ResumeAnalyzer.module.css";
 
-// Ensure PDF.js worker is loaded
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 export default function ResumeAnalyzer() {
   const groq = new Groq({
-    apiKey:
-      process.env.GROQ_API_KEY ||
-      "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",
+    apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
     dangerouslyAllowBrowser: true,
   });
 
@@ -21,7 +18,6 @@ export default function ResumeAnalyzer() {
   const [analysis, setAnalysis] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Handle file upload & extract text from PDF
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -53,7 +49,6 @@ export default function ResumeAnalyzer() {
     };
   };
 
-  // Send resume & job description to AI for analysis
   async function analyzeResume() {
     if (!resumeText || !jobDescription) {
       alert("Please upload a resume and enter a job description.");
@@ -65,7 +60,14 @@ export default function ResumeAnalyzer() {
 
     try {
       const response = await groq.chat.completions.create({
-        messages: [{ role: "user", content: userMessage }],
+        messages: [
+          {
+            role: "system",
+            content:
+              "Analyze the resume and identify skill gaps. Tell missing skills/trainings/experiences... which might be required for the given job description. keep responses medium length and professional. don't use any markdown format.",
+          },
+          { role: "user", content: userMessage },
+        ],
         model: "llama-3.3-70b-versatile",
       });
 
@@ -88,6 +90,7 @@ export default function ResumeAnalyzer() {
         <input
           type="file"
           accept="application/pdf"
+          placeholder="Upload your resume"
           onChange={handleFileUpload}
         />
       </div>
@@ -105,7 +108,7 @@ export default function ResumeAnalyzer() {
         value={jobDescription}
         onChange={(e) => setJobDescription(e.target.value)}
         rows={5}
-        placeholder="Enter job description here..."
+        placeholder="Enter desired Job's description here..."
       />
 
       <button

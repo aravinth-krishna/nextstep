@@ -1,7 +1,8 @@
 import React from "react";
+import ResumeAnalyzer from "../components/ResumeAnalyzer/ResumeAnalyzer";
 
 const Page = () => {
-  return <div>Resume Review</div>;
+  return <ResumeAnalyzer />;
 };
 
 export default Page;

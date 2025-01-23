@@ -36,34 +36,34 @@ export default function Footer() {
         </div>
         <div className={styles.socialLinks}>
           <Link
-            href="https://github.com"
+            href="https://github.com/aravinth-krishna/nextstep"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaGithub size={24} />
           </Link>
           <Link
-            href="https://linkedin.com"
+            href="https://linkedin.com/aravinth-krishna-dev"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaLinkedin size={24} />
           </Link>
           <Link
-            href="https://instagram.com"
+            href="https://instagram.com/_.d.a.z.z._"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaInstagram size={24} />
           </Link>
           <Link
-            href="https://youtube.com"
+            href="https://youtube.com/aravinthkrishna"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaYoutube size={24} />
           </Link>
-          <Link href="mailto:your-email@example.com">
+          <Link href="mailto:r.aravinthkrishna@gmail.com">
             <FaEnvelope size={24} />
           </Link>
         </div>
