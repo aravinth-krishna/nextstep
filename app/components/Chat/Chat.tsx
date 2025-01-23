@@ -8,6 +8,7 @@ import { Send } from "lucide-react";
 interface ChatProps {
   initialMessage?: string;
   userDetails: {
+    id: string;
     fullName: string;
     profile: {
       skills: { name: string }[];
@@ -20,6 +21,7 @@ interface ChatProps {
       }[];
     };
   };
+  onNewChat: () => void; // Add this prop
 }
 
 interface ChatHistoryEntry {
@@ -27,7 +29,11 @@ interface ChatHistoryEntry {
   response: string;
 }
 
-export default function Chat({ initialMessage = "", userDetails }: ChatProps) {
+export default function Chat({
+  initialMessage = "",
+  userDetails,
+  onNewChat,
+}: ChatProps) {
   const [message, setMessage] = useState(initialMessage);
   const [response, setResponse] = useState("");
   const [history, setHistory] = useState<ChatHistoryEntry[]>([]);
@@ -44,6 +50,22 @@ export default function Chat({ initialMessage = "", userDetails }: ChatProps) {
     setResponse(newResponse);
     setHistory([{ message, response: newResponse }, ...history]);
     setMessage("");
+
+    // Save the chat message to the database
+    await fetch("/api/chat/save", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userDetails.id,
+        query: message,
+        response: newResponse,
+      }),
+    });
+
+    // Trigger the sidebar to refresh
+    onNewChat();
   }
 
   async function getGroqChatCompletion(userMessage: string) {
