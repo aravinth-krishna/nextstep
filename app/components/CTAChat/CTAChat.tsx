@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./CTAChat.module.css";
-import { CircleArrowOutUpRight } from "lucide-react";
+import { CircleArrowOutUpRight, Search } from "lucide-react";
 
 const CTAChat = () => {
   const [message, setMessage] = useState("");
@@ -18,13 +18,16 @@ const CTAChat = () => {
 
   return (
     <form className={styles.chatInput} onSubmit={handleSubmit}>
+      <div className={styles.iconContainer}>
+        <Search className={styles.icon} />
+      </div>
       <input
         type="text"
         placeholder="Plan your career now..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button type="submit">
+      <button type="submit" className={styles.sendButton}>
         <CircleArrowOutUpRight />
       </button>
     </form>

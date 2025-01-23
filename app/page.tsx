@@ -14,12 +14,11 @@ export default function Page() {
     <>
       <div className={styles.hero}>
         <div className={styles.leftSection}>
-          <h1 className={styles.robotoFont}>
-            Your Future, One Step Ahead with AI
-          </h1>
+          <h1>Your Future, One Step Ahead with AI</h1>
           <span>
-            From real-time feedback to personalized career paths, NextStep is
-            your partner in professional growth.
+            Transform your professional journey with personalized insights and
+            career tracking. NextStep empowers you to bridge skill gaps, plan
+            your growth, and stay ahead in an ever-evolving world.
           </span>
           <div className={styles.ctaSection}>
             <CTAButton />
@@ -38,38 +37,46 @@ export default function Page() {
       </div>
 
       <div id="about" className={styles.aboutSection}>
-        <h2 className={styles.aboutTitle}>About NextStep</h2>
-        <div className={styles.aboutPoints}>
+        <h2 className={styles.aboutTitle}>Why Choose NextStep?</h2>
+        <div className={styles.aboutGrid}>
           <div className={styles.point}>
-            <FaRegLightbulb className={styles.icon} />
+            <div className={styles.iconContainer}>
+              <FaRegLightbulb className={styles.icon} />
+            </div>
             <h3>Personalized Career Paths</h3>
             <p>
-              Get tailored career advice and actionable steps to achieve your
-              goals.
+              Our AI-powered platform analyzes your goals and provides
+              step-by-step guidance tailored to your aspirations.
             </p>
           </div>
           <div className={styles.point}>
-            <FaUserGraduate className={styles.icon} />
+            <div className={styles.iconContainer}>
+              <FaUserGraduate className={styles.icon} />
+            </div>
             <h3>Skill Development</h3>
             <p>
-              Identify skill gaps and find the right resources to level up your
-              expertise.
+              Discover the tools and resources to close skill gaps and unlock
+              your true potential with curated recommendations.
             </p>
           </div>
           <div className={styles.point}>
-            <FaCogs className={styles.icon} />
-            <h3>AI-Powered Insights</h3>
+            <div className={styles.iconContainer}>
+              <FaCogs className={styles.icon} />
+            </div>
+            <h3>Real-Time Feedback</h3>
             <p>
-              Receive real-time feedback and predictive insights to guide your
-              professional journey.
+              Get actionable insights and feedback instantly to stay on the
+              right path toward achieving your milestones.
             </p>
           </div>
           <div className={styles.point}>
-            <FaChartLine className={styles.icon} />
-            <h3>Career Tracking</h3>
+            <div className={styles.iconContainer}>
+              <FaChartLine className={styles.icon} />
+            </div>
+            <h3>Comprehensive Tracking</h3>
             <p>
-              Monitor your growth, track milestones, and visualize your career
-              trajectory.
+              Visualize your progress, celebrate achievements, and adapt to
+              challenges with robust career tracking tools.
             </p>
           </div>
         </div>
