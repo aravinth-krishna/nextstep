@@ -1,11 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 import styles from "./NavBar.module.css";
 
 export default function Navbar() {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        event.target instanceof Element &&
+        !event.target.closest(`.${styles.profileContainer}`)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>NextStep</div>
@@ -30,9 +52,20 @@ export default function Navbar() {
         <Link href="/login" className={styles.loginLink}>
           LOGIN
         </Link>
-        <Link className={styles.profileIcon} href={"/dashboard"}>
-          <FaUserCircle size={30} />
-        </Link>
+        <div
+          className={styles.profileContainer}
+          onClick={() => setShowDropdown((prev) => !prev)}
+        >
+          <FaUserCircle size={30} className={styles.profileIcon} />
+          {showDropdown && (
+            <div className={styles.dropdownMenu}>
+              <Link href="/dashboard">Dashboard</Link>
+              <button className={styles.logoutButton} onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
