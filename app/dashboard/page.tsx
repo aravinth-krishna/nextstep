@@ -17,27 +17,55 @@ const Dashboard = () => {
   const [fullName, setFullName] = useState("");
   const [bio, setBio] = useState("");
   const [skills, setSkills] = useState("");
-  const [experienceData, setExperienceData] = useState<Experience[]>([
-    {
-      id: "",
-      title: "",
-      company: "",
-      startDate: "",
-      endDate: "",
-      description: "",
-    },
-  ]);
-
-  const [error, setError] = useState("");
+  const [experienceData, setExperienceData] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const [error, setError] = useState("");
   const router = useRouter();
 
+  // Fetch profile data on mount
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
-    }
+    const fetchProfileData = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.push("/login");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch profile data.");
+        }
+
+        const { profile } = await response.json();
+        setFullName(profile.fullName || "");
+        setBio(profile.bio || "");
+        setSkills(
+          profile.skills.map((skill: any) => skill.name).join(", ") || ""
+        );
+        setExperienceData(
+          profile.experience || [
+            {
+              id: "",
+              title: "",
+              company: "",
+              startDate: "",
+              endDate: "",
+              description: "",
+            },
+          ]
+        );
+      } catch (error) {
+        setError("Could not load profile. Please try again.");
+      }
+    };
+
+    fetchProfileData();
   }, [router]);
 
   const handleExperienceChange = (
@@ -88,8 +116,6 @@ const Dashboard = () => {
         experience: experienceData,
       };
 
-      console.log("Submitting payload:", payload);
-
       const response = await fetch("/api/profile", {
         method: "POST",
         headers: {
@@ -99,75 +125,51 @@ const Dashboard = () => {
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
+        const data = await response.json();
         throw new Error(data.error || "Failed to submit profile.");
       }
 
-      alert("Profile submitted successfully!");
-      setFullName("");
-      setBio("");
-      setSkills("");
-      setExperienceData([
-        {
-          id: "",
-          title: "",
-          company: "",
-          startDate: "",
-          endDate: "",
-          description: "",
-        },
-      ]);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("An unknown error occurred.");
-      }
+      alert("Profile updated successfully!");
+    } catch (error: any) {
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    router.push("/login");
-  };
-
   return (
     <div className={styles.container}>
-      <h1>Welcome to Your Dashboard</h1>
-      <p>Fill out the form below to provide your career-related information.</p>
+      <h1 className={styles.heading}>Your Dashboard</h1>
 
       {error && <p className={styles.error}>{error}</p>}
 
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div>
-          <label htmlFor="fullName" className={styles.label}>
-            Full Name:
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-            className={styles.input}
-          />
-        </div>
+        <div className={styles.columnContainer}>
+          <div>
+            <label htmlFor="fullName" className={styles.label}>
+              Full Name:
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              className={styles.input}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="bio" className={styles.label}>
-            Bio:
-          </label>
-          <textarea
-            id="bio"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            required
-            className={styles.textarea}
-          />
+          <div>
+            <label htmlFor="bio" className={styles.label}>
+              Bio:
+            </label>
+            <textarea
+              id="bio"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              className={styles.textarea}
+            />
+          </div>
         </div>
 
         <div>
@@ -179,112 +181,111 @@ const Dashboard = () => {
             id="skills"
             value={skills}
             onChange={(e) => setSkills(e.target.value)}
-            required
             className={styles.input}
           />
         </div>
 
-        {experienceData.map((exp, index) => (
-          <div key={index} className={styles.experienceSection}>
-            <div>
-              <label htmlFor={`title-${index}`} className={styles.label}>
-                Job Title:
-              </label>
-              <input
-                type="text"
-                id={`title-${index}`}
-                name="title"
-                value={exp.title}
-                onChange={(e) => handleExperienceChange(e, index)}
-                required
-                className={styles.input}
-              />
-            </div>
+        <fieldset className={styles.fieldset}>
+          <legend className={styles.legend}>Experience</legend>
 
-            <div>
-              <label htmlFor={`company-${index}`} className={styles.label}>
-                Company:
-              </label>
-              <input
-                type="text"
-                id={`company-${index}`}
-                name="company"
-                value={exp.company}
-                onChange={(e) => handleExperienceChange(e, index)}
-                required
-                className={styles.input}
-              />
-            </div>
-
-            <div>
-              <label htmlFor={`startDate-${index}`} className={styles.label}>
-                Start Date:
-              </label>
-              <input
-                type="date"
-                id={`startDate-${index}`}
-                name="startDate"
-                value={exp.startDate}
-                onChange={(e) => handleExperienceChange(e, index)}
-                required
-                className={styles.input}
-              />
-            </div>
-
-            <div>
-              <label htmlFor={`endDate-${index}`} className={styles.label}>
-                End Date (optional):
-              </label>
-              <input
-                type="date"
-                id={`endDate-${index}`}
-                name="endDate"
-                value={exp.endDate || ""}
-                onChange={(e) => handleExperienceChange(e, index)}
-                className={styles.input}
-              />
-            </div>
-
-            <div>
+          {experienceData.map((exp, index) => (
+            <div key={index} className={styles.experienceSection}>
+              <div className={styles.columnContainer}>
+                <div>
+                  <label htmlFor={`title-${index}`} className={styles.label}>
+                    Job Title:
+                  </label>
+                  <input
+                    type="text"
+                    id={`title-${index}`}
+                    name="title"
+                    value={exp.title}
+                    onChange={(e) => handleExperienceChange(e, index)}
+                    className={styles.input}
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`company-${index}`} className={styles.label}>
+                    Company:
+                  </label>
+                  <input
+                    type="text"
+                    id={`company-${index}`}
+                    name="company"
+                    value={exp.company}
+                    onChange={(e) => handleExperienceChange(e, index)}
+                    className={styles.input}
+                  />
+                </div>
+              </div>
+              <div className={styles.columnContainer}>
+                <div>
+                  <label
+                    htmlFor={`startDate-${index}`}
+                    className={styles.label}
+                  >
+                    Start Date:
+                  </label>
+                  <input
+                    type="date"
+                    id={`startDate-${index}`}
+                    name="startDate"
+                    value={exp.startDate}
+                    onChange={(e) => handleExperienceChange(e, index)}
+                    className={styles.input}
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`endDate-${index}`} className={styles.label}>
+                    End Date:
+                  </label>
+                  <input
+                    type="date"
+                    id={`endDate-${index}`}
+                    name="endDate"
+                    value={exp.endDate || ""}
+                    onChange={(e) => handleExperienceChange(e, index)}
+                    className={styles.input}
+                  />
+                </div>
+              </div>
               <label htmlFor={`description-${index}`} className={styles.label}>
-                Job Description:
+                Description:
               </label>
               <textarea
                 id={`description-${index}`}
                 name="description"
                 value={exp.description}
                 onChange={(e) => handleExperienceChange(e, index)}
-                required
                 className={styles.textarea}
               />
+              <button
+                type="button"
+                onClick={() => handleRemoveExperience(index)}
+                className={styles.removeButton}
+              >
+                Remove Experience
+              </button>
             </div>
+          ))}
 
-            <button
-              type="button"
-              onClick={() => handleRemoveExperience(index)}
-              className={styles.removeButton}
-            >
-              Remove Experience
-            </button>
-          </div>
-        ))}
+          <button
+            type="button"
+            onClick={handleAddExperience}
+            className={styles.addButton}
+          >
+            Add Experience
+          </button>
+        </fieldset>
 
         <button
-          type="button"
-          onClick={handleAddExperience}
-          className={styles.addButton}
+          type="submit"
+          className={styles.submitButton}
+          disabled={loading}
         >
-          Add Experience
-        </button>
-
-        <button type="submit" disabled={loading} className={styles.button}>
-          {loading ? "Submitting..." : "Submit Profile"}
+          {loading ? "Saving..." : "Save Profile"}
         </button>
       </form>
-
-      <button onClick={handleLogout} className={styles.logoutButton}>
-        Logout
-      </button>
     </div>
   );
 };

@@ -1,31 +1,23 @@
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.container h1 {
-  font-size: 2.5rem;
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
   color: #333;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.container p {
-  font-size: 1.2rem;
-  color: #666;
-  text-align: center;
-  margin-bottom: 2rem;
 }
 
 .error {
   color: red;
-  font-size: 1rem;
-  margin-bottom: 1rem;
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 .form {
@@ -34,112 +26,80 @@
   gap: 1.5rem;
 }
 
+.columnContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .label {
-  font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
 }
 
 .input,
 .textarea {
-  padding: 0.8rem;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
   width: 100%;
-  box-sizing: border-box;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .textarea {
-  min-height: 100px;
+  min-height: 80px;
   resize: vertical;
 }
 
-.button {
-  padding: 0.8rem;
-  font-size: 1.2rem;
-  color: white;
-  background-color: #0070f3;
-  border: none;
+.fieldset {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.legend {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #0070f3;
+}
+
+.experienceSection {
+  margin-top: 1rem;
+  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.button:disabled {
-  background-color: #b0b0b0;
-  cursor: not-allowed;
-}
-
-.button:hover:not(:disabled) {
-  background-color: #005bb5;
-}
-
-.logoutButton {
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #f80068;
-  color: white;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.logoutButton:hover {
-  background-color: #d00056;
+  background-color: #fafafa;
 }
 
 .addButton,
-.removeButton {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: white;
-  background-color: #28a745;
+.removeButton,
+.submitButton {
+  background-color: #0070f3;
+  color: #fff;
   border: none;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .addButton:hover,
-.removeButton:hover {
-  background-color: #218838;
+.removeButton:hover,
+.submitButton:hover {
+  background-color: #005bb5;
 }
 
 .removeButton {
-  background-color: #dc3545;
+  background-color: #f44336;
 }
 
 .removeButton:hover {
-  background-color: #c82333;
+  background-color: #d32f2f;
 }
 
-@media (max-width: 600px) {
-  .container {
-    padding: 1rem;
-  }
-
-  .container h1 {
-    font-size: 2rem;
-  }
-
-  .container p {
-    font-size: 1rem;
-  }
-
-  .form {
-    gap: 1rem;
-  }
-
-  .input,
-  .textarea {
-    font-size: 0.9rem;
-  }
-
-  .button {
-    font-size: 1rem;
-  }
+.submitButton {
+  margin-top: 1rem;
+  align-self: center;
+  font-size: 1.1rem;
 }
