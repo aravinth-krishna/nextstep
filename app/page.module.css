@@ -1,5 +1,5 @@
 .hero {
-  height: 80vh;
+  height: 85vh;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -10,7 +10,7 @@
 
 .leftSection {
   height: 100%;
-  width: 80vw;
+  width: 50vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,7 +76,7 @@
 }
 
 .aboutSection {
-  height: 80vh;
+  height: 90vh;
   background: #f9f9f9;
   padding: 4rem 2rem;
 }

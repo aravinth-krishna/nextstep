@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Chat from "../components/Chat/Chat";
+import styles from "./page.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const ChatbotPage = () => {
@@ -58,7 +59,9 @@ const ChatbotPage = () => {
 
   return (
     <>
-      <Chat initialMessage={initialMessage} userDetails={userDetails} />
+      <div className={styles.container}>
+        <Chat initialMessage={initialMessage} userDetails={userDetails} />
+      </div>
     </>
   );
 };
