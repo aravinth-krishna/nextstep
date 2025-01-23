@@ -30,7 +30,7 @@ export default function Footer() {
               <Link href="/resume-review">Resume Review</Link>
             </li>
             <li>
-              <Link href="/interviews">Mock Interviews</Link>
+              <Link href="/career-path">Career Paths</Link>
             </li>
           </ul>
         </div>
