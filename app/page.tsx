@@ -1,95 +1,79 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import CTAChat from "./components/CTAChat/CTAChat";
+import CTAButton from "./components/CTAButton/CTAButton";
+import {
+  FaRegLightbulb,
+  FaUserGraduate,
+  FaCogs,
+  FaChartLine,
+} from "react-icons/fa"; // Importing React icons
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <>
+      <div className={styles.hero}>
+        <div className={styles.leftSection}>
+          <h1 className={styles.robotoFont}>
+            Your Future, One Step Ahead with AI
+          </h1>
+          <span>
+            From real-time feedback to personalized career paths, NextStep is
+            your partner in professional growth.
+          </span>
+          <div className={styles.ctaSection}>
+            <CTAButton />
+            <CTAChat />
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+
+        <div className={styles.rightSection}>
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/ai-career.png"
+            alt="Hero Section Image"
+            width={500}
+            height={435}
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </div>
+      </div>
+
+      <div id="about" className={styles.aboutSection}>
+        <h2 className={styles.aboutTitle}>About NextStep</h2>
+        <div className={styles.aboutPoints}>
+          <div className={styles.point}>
+            <FaRegLightbulb className={styles.icon} />
+            <h3>Personalized Career Paths</h3>
+            <p>
+              Get tailored career advice and actionable steps to achieve your
+              goals.
+            </p>
+          </div>
+          <div className={styles.point}>
+            <FaUserGraduate className={styles.icon} />
+            <h3>Skill Development</h3>
+            <p>
+              Identify skill gaps and find the right resources to level up your
+              expertise.
+            </p>
+          </div>
+          <div className={styles.point}>
+            <FaCogs className={styles.icon} />
+            <h3>AI-Powered Insights</h3>
+            <p>
+              Receive real-time feedback and predictive insights to guide your
+              professional journey.
+            </p>
+          </div>
+          <div className={styles.point}>
+            <FaChartLine className={styles.icon} />
+            <h3>Career Tracking</h3>
+            <p>
+              Monitor your growth, track milestones, and visualize your career
+              trajectory.
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
