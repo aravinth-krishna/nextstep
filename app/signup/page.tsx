@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState(""); // Changed from username to fullName
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,8 +22,10 @@ const SignUp = () => {
       const response = await fetch("/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, username, password }),
+        body: JSON.stringify({ email, fullName, password }), // Changed from username to fullName
       });
+
+      console.log(fullName, email, password); // Changed from username to fullName
 
       const data = await response.json();
 
@@ -33,7 +35,7 @@ const SignUp = () => {
 
       alert("Signup successful!");
       setEmail("");
-      setUsername("");
+      setFullName(""); // Changed from setUsername to setFullName
       setPassword("");
 
       router.push("/dashboard");
@@ -58,9 +60,9 @@ const SignUp = () => {
         />
         <input
           type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Full Name" // Changed from Username to Full Name
+          value={fullName} // Changed from username to fullName
+          onChange={(e) => setFullName(e.target.value)} // Changed from setUsername to setFullName
           required
         />
         <input

@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
 
     const skillIds = await Promise.all(
       skills.map(async (skillName: string) => {
-        let skill = await prisma.skill.findUnique({
+        let skill = await prisma.skill.findFirst({
           where: { name: skillName },
         });
 

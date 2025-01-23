@@ -8,7 +8,7 @@ const SALT_ROUNDS = 10;
 
 export async function POST(req: Request) {
   try {
-    const { email, password, fullName } = await req.json();
+    const { email, fullName, password } = await req.json();
 
     if (!email || !password || !fullName) {
       return NextResponse.json(
