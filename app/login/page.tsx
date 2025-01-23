@@ -10,12 +10,40 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const router = useRouter();
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    return password.length >= 6;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    if (!validateEmail(email)) {
+      setEmailError("Invalid email address.");
+      setLoading(false);
+      return;
+    } else {
+      setEmailError("");
+    }
+
+    if (!validatePassword(password)) {
+      setPasswordError("Password must be at least 6 characters long.");
+      setLoading(false);
+      return;
+    } else {
+      setPasswordError("");
+    }
 
     try {
       const response = await fetch("/api/signin", {
@@ -51,27 +79,35 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h1>Login</h1>
+        <h1>Welcome Back!</h1>
         {error && <p className={styles.error}>{error}</p>}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className={styles.inputGroup}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          {emailError && <p className={styles.inputError}>{emailError}</p>}
+        </div>
+        <div className={styles.inputGroup}>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          {passwordError && (
+            <p className={styles.inputError}>{passwordError}</p>
+          )}
+        </div>
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
         <span className={styles.signup}>
-          New User? <Link href="/signup">Sign Up</Link>
+          New User? <Link href="/signup"> Sign Up</Link>
         </span>
       </form>
     </div>
