@@ -27,7 +27,7 @@ export default function Footer() {
               <Link href="/chatbot">Chatbot</Link>
             </li>
             <li>
-              <Link href="/resume">Resume Review</Link>
+              <Link href="/resume-review">Resume Review</Link>
             </li>
             <li>
               <Link href="/interviews">Mock Interviews</Link>
