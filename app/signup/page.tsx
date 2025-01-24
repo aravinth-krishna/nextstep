@@ -69,13 +69,12 @@ const SignUp = () => {
         throw new Error(data.error || "Failed to create account.");
       }
 
-      alert("Signup successful!");
       setEmail("");
       setFullName("");
       setPassword("");
       setConfirmPassword("");
 
-      router.push("/dashboard");
+      router.push("/login");
     } catch (error: unknown) {
       setError((error as Error).message);
     } finally {
