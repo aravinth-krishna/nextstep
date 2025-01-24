@@ -4,6 +4,7 @@ import axios from "axios";
 const YOUTUBE_API_KEY = process.env.GOOGLE_API_KEY;
 const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_API_KEY;
 
+// Fetch video content related to the skill
 const getVideoContent = async (skill: string) => {
   try {
     const response = await axios.get(
@@ -13,7 +14,7 @@ const getVideoContent = async (skill: string) => {
           part: "snippet",
           q: `${skill} tutorial`, // Broader query
           key: YOUTUBE_API_KEY,
-          maxResults: 10, // Increase to fetch more videos
+          maxResults: 5, // Increase to fetch more videos
           type: "video", // Fetch only video results
         },
       }

@@ -2,7 +2,11 @@ import React from "react";
 import TrainingProgram from "../components/TrainingProgram/TrainingProgram";
 
 const page = () => {
-  return <TrainingProgram />;
+  return (
+    <>
+      <TrainingProgram />
+    </>
+  );
 };
 
 export default page;

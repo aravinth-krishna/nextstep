@@ -16,6 +16,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/pdfjs-dist": "^2.10.378",
     "@types/react-pdf": "^7.0.0",
+    "@zegocloud/zego-uikit-prebuilt": "^2.14.1",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "formidable": "^3.5.2",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/axios": "^0.14.4",
     "@types/formidable": "^3.4.5",
     "@types/hoist-non-react-statics": "^3.3.6",
     "@types/jsonwebtoken": "^9.0.7",
@@ -56,5 +58,13 @@
     "eslint-config-next": "15.1.5",
     "prisma": "^6.2.1",
     "typescript": "^5"
-  }
+  },
+  "description": "**NextStep** is a career-driven navigator platform built using **TypeScript** and **CSS**, designed to help individuals accelerate their professional growth. The platform offers features like **AI-powered resume analysis** and a **virtual career assistant** to guide users through their journey to success.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": []
 }

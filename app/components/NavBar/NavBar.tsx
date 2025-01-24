@@ -50,6 +50,9 @@ export default function Navbar() {
         <li>
           <Link href="/training-program">Training Program</Link>
         </li>
+        <li>
+          <Link href="/mock-interview">Mock Interview</Link>
+        </li>
       </ul>
       <div className={styles.rightSection}>
         <Link href="/login" className={styles.loginLink}>

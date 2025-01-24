@@ -35,6 +35,9 @@ export default function Footer() {
             <li>
               <Link href="/training-program">Training Program</Link>
             </li>
+            <li>
+              <Link href="/mock-interview">Mock Interview</Link>
+            </li>
           </ul>
         </div>
         <div className={styles.socialLinks}>
