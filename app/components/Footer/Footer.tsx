@@ -32,6 +32,9 @@ export default function Footer() {
             <li>
               <Link href="/career-path">Career Paths</Link>
             </li>
+            <li>
+              <Link href="/training-program">Training Program</Link>
+            </li>
           </ul>
         </div>
         <div className={styles.socialLinks}>
